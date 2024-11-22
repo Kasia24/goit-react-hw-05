@@ -8,7 +8,7 @@ import {
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = "2fd9551be199200f928abc93ae4bceb1";
 
 function MovieDetailsPage() {
   const { movieId } = useParams();

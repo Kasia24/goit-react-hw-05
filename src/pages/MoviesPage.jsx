@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import MovieList from "../components/MovieList";
 import axios from "axios";
 
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = "2fd9551be199200f928abc93ae4bceb1";
 
 function MoviesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
