@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_KEY = "c2bec4272be6618d9a2508aab6859af1";
+const API_KEY =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMmJlYzQyNzJiZTY2MThkOWEyNTA4YWFiNjg1OWFmMSIsIm5iZiI6MTczMjM3NjE4Ny44NTU4NDkzLCJzdWIiOiI2NzA5NWFkYTI2NWE1ZjhiYzU3MGQ1NzIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.VfY9fBJg_-CChyksB6DwBhoEkYmWI44Fdhpy7TvtgaA";
 const BASE_URL =
   "https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
