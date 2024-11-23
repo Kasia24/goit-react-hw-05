@@ -1,33 +1,31 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { fetchMovieReviews } from "../services/tmdb";
 
-const API_KEY = "2fd9551be199200f928abc93ae4bceb1";
-
-function MovieReviews() {
+const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${movieId}/reviews`, {
-        headers: { Authorization: `Bearer ${API_KEY}` },
-      })
-      .then(({ data }) => setReviews(data.results));
+    const getReviews = async () => {
+      const data = await fetchMovieReviews(movieId);
+      setReviews(data);
+    };
+    getReviews();
   }, [movieId]);
 
-  if (!reviews.length) return <p>No reviews available.</p>;
-
-  return (
+  return reviews.length ? (
     <ul>
       {reviews.map((review) => (
         <li key={review.id}>
-          <h3>{review.author}</h3>
+          <p>{review.author}</p>
           <p>{review.content}</p>
         </li>
       ))}
     </ul>
+  ) : (
+    <p>No reviews available.</p>
   );
-}
+};
 
 export default MovieReviews;

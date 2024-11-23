@@ -1,30 +1,28 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { fetchMovieCast } from "../services/tmdb";
 
-const API_KEY = "2fd9551be199200f928abc93ae4bceb1";
-
-function MovieCast() {
+const MovieCast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
-        headers: { Authorization: `Bearer ${API_KEY}` },
-      })
-      .then(({ data }) => setCast(data.cast));
+    const getCast = async () => {
+      const data = await fetchMovieCast(movieId);
+      setCast(data);
+    };
+    getCast();
   }, [movieId]);
 
-  if (!cast.length) return <p>No cast information available.</p>;
-
-  return (
+  return cast.length ? (
     <ul>
       {cast.map((actor) => (
         <li key={actor.id}>{actor.name}</li>
       ))}
     </ul>
+  ) : (
+    <p>No cast information available.</p>
   );
-}
+};
 
 export default MovieCast;
