@@ -1,6 +1,7 @@
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function MovieList({ movies }) {
+const MovieList = ({ movies }) => {
   const location = useLocation();
 
   return (
@@ -8,12 +9,12 @@ function MovieList({ movies }) {
       {movies.map((movie) => (
         <li key={movie.id}>
           <Link to={`/movies/${movie.id}`} state={{ from: location }}>
-            {movie.title || movie.name}
+            {movie.title}
           </Link>
         </li>
       ))}
     </ul>
   );
-}
+};
 
 export default MovieList;
