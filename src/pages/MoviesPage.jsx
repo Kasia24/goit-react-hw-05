@@ -1,49 +1,37 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { searchMovies } from "../services/tmdb";
 import MovieList from "../components/MovieList";
-import axios from "axios";
 
-const API_KEY = "2fd9551be199200f928abc93ae4bceb1";
-
-function MoviesPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
 
   useEffect(() => {
     if (!query) return;
-    setLoading(true);
-    axios
-      .get(`https://api.themoviedb.org/3/search/movie`, {
-        params: { query },
-        headers: { Authorization: `Bearer ${API_KEY}` },
-      })
-      .then(({ data }) => setMovies(data.results))
-      .catch(setError)
-      .finally(() => setLoading(false));
+    const getMovies = async () => {
+      const data = await searchMovies(query);
+      setMovies(data);
+    };
+    getMovies();
   }, [query]);
 
-  const handleSubmit = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const queryValue = form.elements.query.value.trim();
-    setSearchParams({ query: queryValue });
+    const query = e.target.elements.query.value.trim();
+    setSearchParams({ query });
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="query" defaultValue={query} />
+    <>
+      <form onSubmit={handleSearch}>
+        <input name="query" defaultValue={query} />
         <button type="submit">Search</button>
       </form>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error fetching movies</p>}
       <MovieList movies={movies} />
-    </div>
+    </>
   );
-}
+};
 
 export default MoviesPage;

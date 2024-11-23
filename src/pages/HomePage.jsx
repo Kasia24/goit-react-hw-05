@@ -1,32 +1,31 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { fetchTrendingMovies } from "../services/tmdb";
 import MovieList from "../components/MovieList";
-import axios from "axios";
 
-const API_KEY = "2fd9551be199200f928abc93ae4bceb1";
-
-function HomePage() {
+const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("https://api.themoviedb.org/3/trending/movie/day", {
-        headers: { Authorization: `Bearer ${API_KEY}` },
-      })
-      .then(({ data }) => setMovies(data.results))
-      .catch(setError)
-      .finally(() => setLoading(false));
+    const getMovies = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchTrendingMovies();
+        setMovies(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getMovies();
   }, []);
 
-  return (
-    <div>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error fetching movies</p>}
-      <MovieList movies={movies} />
-    </div>
-  );
-}
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  return <MovieList movies={movies} />;
+};
 
 export default HomePage;
