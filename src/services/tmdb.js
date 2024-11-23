@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const API_KEY = "c2bec4272be6618d9a2508aab6859af1";
-const BASE_URL =
-  "https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}";
+const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 const tmdbApi = axios.create({
