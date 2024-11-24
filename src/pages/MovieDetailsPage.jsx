@@ -28,6 +28,7 @@ const MovieDetailsPage = () => {
         <Link to="cast">Cast</Link>
         <Link to="reviews">Reviews</Link>
       </nav>
+      {/* Miejsce na renderowanie zagnieżdżonych komponentów */}
       <Outlet />
     </>
   );
