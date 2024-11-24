@@ -20,7 +20,7 @@ const MovieDetailsPage = () => {
 
   return (
     <>
-      <Link to={backLink.current}>Go back</Link>
+      <Link to={backLink}>Go back</Link>
       <h1>{movie.title}</h1>
       <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
       <p>{movie.overview}</p>
