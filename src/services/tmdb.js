@@ -37,5 +37,4 @@ export const fetchMovieReviews = async (movieId) => {
   return response.data.results;
 };
 
-export const getImageUrl = (path, size = "w500") =>
-  `https://image.tmdb.org/t/p/${size}${path}`;
+export const getImageUrl = (path) => `${IMAGE_BASE_URL}${path}`;

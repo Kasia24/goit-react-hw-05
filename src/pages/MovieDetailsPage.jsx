@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Outlet, Link, useLocation } from "react-router-dom";
-import { fetchMovieDetails } from "../services/tmdb";
+import { fetchMovieDetails, getImageUrl } from "../services/tmdb";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -20,9 +20,9 @@ const MovieDetailsPage = () => {
 
   return (
     <>
-      <Link to={backLink}>Go back</Link>
+      <Link to={backLink.current}>Go back</Link>
       <h1>{movie.title}</h1>
-      <img src={movie.poster_path} alt={movie.title} />
+      <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
       <p>{movie.overview}</p>
       <nav>
         <Link to="cast">Cast</Link>
