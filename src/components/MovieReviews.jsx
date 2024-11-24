@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieReviews } from "../services/tmdb";
 
@@ -7,24 +7,21 @@ const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const getReviews = async () => {
-      const data = await fetchMovieReviews(movieId);
-      setReviews(data);
-    };
-    getReviews();
+    fetchMovieReviews(movieId).then(setReviews);
   }, [movieId]);
 
-  return reviews.length ? (
+  if (!reviews || reviews.length === 0)
+    return <p>No reviews available for this movie.</p>;
+
+  return (
     <ul>
       {reviews.map((review) => (
         <li key={review.id}>
-          <p>{review.author}</p>
+          <h4>{review.author}</h4>
           <p>{review.content}</p>
         </li>
       ))}
     </ul>
-  ) : (
-    <p>No reviews available.</p>
   );
 };
 
