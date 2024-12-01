@@ -25,8 +25,8 @@ const MovieDetailsPage = () => {
       <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
       <p>{movie.overview}</p>
       <nav>
-        <Link to="cast">Cast</Link>
-        <Link to="reviews">Reviews</Link>
+        <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+        <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
       </nav>
       {/* Miejsce na renderowanie zagnieżdżonych komponentów */}
       <Outlet />
