@@ -7,6 +7,10 @@ const MovieCast = () => {
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
+    fetchMovieCast(movieId).then(setCast);
+  }, [movieId]);
+
+  useEffect(() => {
     const fetchMovieCast = async () => {
       try {
         const response = await fetch(
