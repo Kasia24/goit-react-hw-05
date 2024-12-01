@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieCast } from "../services/tmdb";
 
-const MovieCast = ({ movieId }) => {
+const MovieCast = () => {
+  const { movieId } = useParams();
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
-    const fetchCast = async () => {
+    const fetchMovieCast = async () => {
       try {
         const response = await fetch(
           `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=YOUR_API_KEY`
