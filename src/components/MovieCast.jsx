@@ -10,21 +10,7 @@ const MovieCast = () => {
     fetchMovieCast(movieId).then(setCast);
   }, [movieId]);
 
-  useEffect(() => {
-    const fetchMovieCast = async () => {
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=YOUR_API_KEY`
-        );
-        const data = await response.json();
-        setCast(data.cast);
-      } catch (error) {
-        console.error("Error fetching cast data:", error);
-      }
-    };
-
-    fetchCast();
-  }, [movieId]);
+  if (!cast || cast.length === 0) return <p>No cast information available.</p>;
 
   return (
     <div>
